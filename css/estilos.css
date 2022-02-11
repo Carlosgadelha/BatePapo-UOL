@@ -1,0 +1,65 @@
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position:fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: yellow;
+    height: 80px;
+    
+}
+
+header img{
+    width: 75px;
+    height: 53px;
+    margin-left: 22px;
+}
+
+header ion-icon{
+    width: 42.19px;
+    height: 30.94px;
+    margin-right: 24.03px;
+}
+main{
+    margin-top: 106px; 
+    height: 100vh;
+
+}
+
+.mensagem{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    margin-bottom: 4px;
+}
+
+.mensagem p{
+    margin-left: 8px;
+}
+
+
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position:fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    background-color: gray;
+    height: 80px;
+    margin-bottom: 0px;
+}
+
+footer input{
+    width: 300px;
+    height: 30px;
+    margin-left: 16px;
+}
+
+footer ion-icon{
+    font-size: 26px;
+    margin-right: 18px;
+}
