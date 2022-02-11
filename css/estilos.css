@@ -39,6 +39,20 @@ main{
     margin-left: 8px;
 }
 
+.status{
+    background-color: rgba(220, 220, 220, 1) ;
+}
+
+.message{
+    background-color: rgba(255, 255, 255, 1);
+
+}
+
+.private_message{
+    background-color: rgba(255, 222, 222, 1);
+
+}
+
 
 footer{
     display: flex;
