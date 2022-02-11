@@ -17,6 +17,7 @@ function conexaoSucesso(resposta) {
     if(statusCode === 200){
         logado = true
         console.log("Sucesso vai da certo Garoto")
+        buscarMenssagens()
     }else if(statusCode === 400){
         logado = false
     }
@@ -60,6 +61,28 @@ function buscarMenssagens(){
 
 }
 
+function EnviarMensagens(){
+
+    const input = document.querySelector('input')
+    const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages',{
+        from: nomeUsuario,
+        to: "para todos",
+        text: input.value,
+        type: "message" // ou "private_message" para o bônus
+    })
+
+    console.log(input.value)
+
+    promise.then(()=>{
+        input.value = ''
+        buscarMenssagens()
+    })
+    promise.catch(()=>{
+        window.location.reload()
+    });
+      
+}
+
 
 setInterval(PermanecerLogado,5000)
-setInterval(buscarMenssagens,3000)
+setInterval(buscarMenssagens,10000)
