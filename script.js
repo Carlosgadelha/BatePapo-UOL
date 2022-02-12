@@ -1,34 +1,28 @@
 let nomeUsuario
 
 
+function logar(){
 
-nomeUsuario = prompt("Qual seu nome? ")
-
-const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/participants',{
-   name: nomeUsuario
-})
-
-promise.then(conexaoSucesso)
-promise.catch(tratarErro);
-
-function conexaoSucesso(resposta) {
-    logado = true
-    const statusCode = parseInt(resposta.status)
-    if(statusCode === 200){
+        nomeUsuario = prompt("Qual seu nome? ")
         logado = true
-        console.log("Sucesso vai da certo Garoto")
-        buscarMenssagens()
-    }else if(statusCode === 400){
-        logado = false
-    }
-    
-}
+        const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/participants',{
+        name: nomeUsuario
+        })
+        console.log("teste")
+        promise.then((resposta)=>{
+           
+            const statusCode = parseInt(resposta.status)
+            if(statusCode === 200){
+                console.log("Sucesso vai da certo Garoto")
+                buscarMenssagens()
+            }
+        })
 
-function tratarErro(erro) {
-    console.log("Status code: " + erro.response.status); // Ex: 404
-    console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
-}
+        promise.catch(()=>{
+           window.location.reload()
+        });
 
+}
 
 function PermanecerLogado(){
     const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/status',{
@@ -83,6 +77,11 @@ function EnviarMensagens(){
       
 }
 
+function ativarMenu(){
+    const menuLateral = document.querySelector(".fundo")
+    menuLateral.classList.toggle("escondido")
+}
 
+logar()
 setInterval(PermanecerLogado,5000)
 setInterval(buscarMenssagens,10000)

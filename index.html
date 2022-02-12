@@ -13,7 +13,7 @@
     <header>
 
         <img src="./imagens/logo 1.png">
-        <ion-icon name="people-sharp"></ion-icon>
+        <ion-icon name="people-sharp" onclick="ativarMenu()"></ion-icon>
 
     </header>
     <main>
@@ -22,6 +22,17 @@
         </section>
 
     </main>
+    <div class="fundo escondido" >
+        <section class="lateralEsquerda" onclick="ativarMenu()"> 
+
+        </section>
+        <section class="participantes">
+            <div class="titulo">Escolha um contato
+                para enviar mensagem:
+            </div>
+
+        </section>
+    </div>
     <footer>
         <input type="text" placeholder="Escreva aqui...">
         <ion-icon name="paper-plane-outline" onclick="EnviarMensagens()"></ion-icon>

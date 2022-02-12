@@ -54,6 +54,52 @@ main{
 
 }
 
+.fundo{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+.fundo .lateralEsquerda{
+    width: 116px;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.participantes{
+    width: 100%;
+    height: 100%;
+    margin-left: 116px;
+    background: rgba(255, 255, 255, 1);
+    position: fixed;
+    
+    bottom: 0px;
+    left: 0px;
+}
+
+.participantes .titulo{
+    height: 84px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.escondido{
+    display: none;
+}
+
 
 footer{
     display: flex;
@@ -63,7 +109,7 @@ footer{
     left: 0px;
     bottom: 0px;
     width: 100%;
-    background-color: gray;
+    background-color: red;
     height: 80px;
     margin-bottom: 0px;
 }
