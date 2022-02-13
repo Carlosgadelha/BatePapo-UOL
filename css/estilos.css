@@ -1,14 +1,31 @@
+*{
+    box-sizing: border-box;
+    --cor-principal: rgba(255, 255, 255, 1);
+    --largura: 375px;
+}
+
+body{
+    width: 375px;
+    font-family: 'Roboto', sans-serif;
+}
+
+
 header{
     display: flex;
     align-items: center;
+    text-align: center;
     justify-content: space-between;
     position:fixed;
     left: 0;
     top: 0;
-    width: 100%;
-    background-color: yellow;
+    width: var(--largura);
+    background-color: var(--cor-principal);
     height: 80px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
     
+}
+header .titulo{
+    display: flex;
 }
 
 header img{
@@ -32,7 +49,9 @@ main{
 .mensagem{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     height: 40px;
+    width: 100%;
     margin-bottom: 4px;
 }
 
@@ -45,8 +64,8 @@ main{
 }
 
 .message{
-    background-color: rgba(255, 255, 255, 1);
-
+    background-color: var(--cor-principal);
+    
 }
 
 .private_message{
@@ -55,7 +74,7 @@ main{
 }
 
 .fundo{
-    width: 100%;
+    width: var(--largura);
     height: 100%;
     position: fixed;
     top: 0px;
@@ -74,18 +93,22 @@ main{
 }
 
 .participantes{
-    width: 100%;
+    width: 259px;
     height: 100%;
     margin-left: 116px;
-    background: rgba(255, 255, 255, 1);
+    background: var(--cor-principal);
     position: fixed;
     
     bottom: 0px;
     left: 0px;
 }
+.participantes .menus{
+    background-color: gray;
+    margin-left: 17.78px;
+    margin-right: 27px;
+}
 
 .participantes .titulo{
-    height: 84px;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
@@ -95,6 +118,41 @@ main{
     align-items: center;
     text-align: center;
 }
+.participantes .menuTitulo{
+    height: 84px;
+    background-color: blueviolet;
+}
+
+.participantes .menuVisibilidade{
+    height: 138px;
+    background-color: yellow;
+}
+
+.menuVisibilidade .titulo{
+    display: flex;
+    background-color: aqua;
+    align-items: center;
+    height: 66px;
+}
+
+.menuVisibilidade .tipoMensagem{
+    display: flex;
+    align-items: center;
+    height: 36px;
+}
+
+.tipoMensagem p{
+    margin-left: 10.44px;
+    width: 151px;
+}
+
+.tipoMensagem .check{
+    margin-left: 23px;
+    font-size: 15px;
+    color: #28BB25;
+} 
+
+.desmarcado{opacity: 0;}
 
 .escondido{
     display: none;
@@ -108,16 +166,23 @@ footer{
     position:fixed;
     left: 0px;
     bottom: 0px;
-    width: 100%;
-    background-color: red;
+    width: var(--largura);
+    background-color: var(--cor-principal);
     height: 80px;
     margin-bottom: 0px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 footer input{
     width: 300px;
     height: 30px;
     margin-left: 16px;
+    border: none;
+}
+
+textarea:focus, input:focus{
+    box-sizing: 0 0 0 0;
+    outline: 0;
 }
 
 footer ion-icon{

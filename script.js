@@ -82,6 +82,21 @@ function ativarMenu(){
     menuLateral.classList.toggle("escondido")
 }
 
+function selecionar(tipo){
+    let itemAnterior
+
+    if( tipo === 'publico'){
+        itemAnterior = document.querySelector(`.reservadamente .check`)
+    }else{
+        itemAnterior = document.querySelector(`.publico .check`)
+    }
+    
+    const item = document.querySelector(`.${tipo} .check`)
+
+    item.classList.remove("desmarcado")
+    itemAnterior.classList.add("desmarcado")
+}
+
 logar()
 setInterval(PermanecerLogado,5000)
 setInterval(buscarMenssagens,10000)
