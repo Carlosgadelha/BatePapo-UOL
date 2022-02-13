@@ -1,4 +1,6 @@
-let nomeUsuario
+let nomeUsuario, controle
+
+controle = false
 
 
 function logar(){
@@ -55,6 +57,48 @@ function buscarMenssagens(){
 
 }
 
+function buscarUsuariosAtivos(){
+
+    let usuariosAtivos = document.querySelector(".menus .usuariosAtivos")
+
+    const promessa = axios.get('https://mock-api.driven.com.br/api/v4/uol/participants');
+    promessa.then(processarResposta);
+
+    function processarResposta(resposta) {
+
+        // if(controle === false){
+        //     usuariosAtivos_anteriores = resposta.data
+        // }else{
+        //     const usuariosAtivos_atuais = resposta.data.filter(separar())
+        // }
+
+        if(resposta.data.length >5){
+            let menuVisibilidade = document.querySelector(".menus .menuVisibilidade")
+            menuVisibilidade.classList.add("fixar")
+        }
+        usuariosAtivos.innerHTML = ""
+        usuariosAtivos.innerHTML +=`
+        <div class= "usuarios usuario_0" onclick="selecionar('usuario_0')">
+            <ion-icon name="people-sharp"></ion-icon>
+            <p>Todos</p>
+            <ion-icon name="checkmark-sharp" class="check desmarcado"></ion-icon>
+        </div>`
+
+        for (let i = 0; i < resposta.data.length; i++) {
+            
+            usuariosAtivos.innerHTML +=`
+                <div class= "usuarios usuario_${i+1}" onclick="selecionar('usuario_${i+1}')">
+                    <ion-icon name="person-circle"></ion-icon>
+                    <p>${resposta.data[i].name}</p>
+                    <ion-icon name="checkmark-sharp" class="check desmarcado"></ion-icon>
+                </div>
+                `
+            usuariosAtivos.lastElementChild.scrollIntoView()
+
+        }
+}
+
+}
 function EnviarMensagens(){
 
     const input = document.querySelector('input')
@@ -78,6 +122,7 @@ function EnviarMensagens(){
 }
 
 function ativarMenu(){
+    buscarUsuariosAtivos()
     const menuLateral = document.querySelector(".fundo")
     menuLateral.classList.toggle("escondido")
 }
@@ -100,3 +145,5 @@ function selecionar(tipo){
 logar()
 setInterval(PermanecerLogado,5000)
 setInterval(buscarMenssagens,10000)
+setInterval(buscarUsuariosAtivos,10000)
+
