@@ -187,7 +187,7 @@ main{
 }
 
 .participantes .usuariosAtivos{
-    height: 500px;
+    height: 650px;
     overflow: hidden;
     overflow-y: scroll;
     margin-top: 84px;
