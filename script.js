@@ -16,7 +16,7 @@ function logar(){
             const statusCode = parseInt(resposta.status)
             if(statusCode === 200){
                 console.log("Sucesso vai da certo Garoto")
-                buscarMenssagens()
+                buscarMensagens()
             }
         })
 
@@ -32,15 +32,28 @@ function PermanecerLogado(){
     })
 }
 
-function buscarMenssagens(){
-
-    let mensagens = document.querySelector("main .mensagens")
+function buscarMensagens(){
+    
+    let mensagens,mensagensAntigas, mensagensAtuais
+    
+    mensagens = document.querySelector("main .mensagens")
 
     const promessa = axios.get('https://mock-api.driven.com.br/api/v4/uol/messages');
     promessa.then(processarResposta);
 
     function processarResposta(resposta) {
-        // console.log(resposta.data)
+        // console.log(resposta.data.length)
+
+        // if(controle === false){
+        //         mensagensAntigas = Array.from(resposta.data)
+        //         console.log( mensagensAntigas)
+        //         controle = true
+        //     }else{
+        //         mensagensAtuais = Array.from(resposta.data)
+        //         console.log(novasMensagens(mensagensAntigas, mensagensAtuais))
+        //         controle = false
+        //     }
+        mensagens.innerHTML = ""
         for (let i = 0; i < resposta.data.length; i++) {
             
             mensagens.innerHTML +=`
@@ -53,7 +66,14 @@ function buscarMenssagens(){
             mensagens.lastElementChild.scrollIntoView()
 
         }
+    }
+
 }
+
+function novasMensagens(mensagensAntigas, mensagensAtuais){
+    return mensagensAntigas.filter((element)=>{
+        !mensagensAtuais.includes(element)
+    })
 
 }
 
@@ -113,7 +133,7 @@ function EnviarMensagens(){
 
     promise.then(()=>{
         input.value = ''
-        buscarMenssagens()
+        buscarMensagens()
     })
     promise.catch(()=>{
         window.location.reload()
@@ -144,6 +164,12 @@ function selecionar(tipo){
 
 logar()
 setInterval(PermanecerLogado,5000)
-setInterval(buscarMenssagens,10000)
+setInterval(buscarMensagens,10000)
 setInterval(buscarUsuariosAtivos,10000)
+
+document.addEventListener("keypress", (tecla)=> {
+    if(tecla.key === 'Enter') {
+        EnviarMensagens()
+    }
+  });
 
