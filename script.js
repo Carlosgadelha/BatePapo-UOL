@@ -1,6 +1,9 @@
-let nomeUsuario, controle
+let nomeUsuario, controle, destinatario, tipoMensagem
 
 controle = false
+destinatario = "Todos"
+tipoMensagem = "message"
+
 
 function preloader(){
     const input = document.querySelector(' .telaEntrada input')
@@ -66,17 +69,7 @@ function buscarMensagens(){
     promessa.then(processarResposta);
 
     function processarResposta(resposta) {
-        // console.log(resposta.data.length)
 
-        // if(controle === false){
-        //         mensagensAntigas = Array.from(resposta.data)
-        //         console.log( mensagensAntigas)
-        //         controle = true
-        //     }else{
-        //         mensagensAtuais = Array.from(resposta.data)
-        //         console.log(novasMensagens(mensagensAntigas, mensagensAtuais))
-        //         controle = false
-        //     }
         mensagens.innerHTML = ""
         for (let i = 0; i < resposta.data.length; i++) {
             
@@ -110,34 +103,27 @@ function buscarUsuariosAtivos(){
 
     function processarResposta(resposta) {
 
-        // if(controle === false){
-        //     usuariosAtivos_anteriores = resposta.data
-        // }else{
-        //     const usuariosAtivos_atuais = resposta.data.filter(separar())
-        // }
-
         if(resposta.data.length >5){
             let menuVisibilidade = document.querySelector(".menus .menuVisibilidade")
             menuVisibilidade.classList.add("fixar")
         }
         usuariosAtivos.innerHTML = ""
         usuariosAtivos.innerHTML +=`
-        <div class= "usuarios usuario_0" onclick="selecionar('usuario_0')">
+        <div class= "usuarios usuario_0 selecionado" onclick="selecionar('usuariosAtivos',this)">
             <ion-icon name="people-sharp"></ion-icon>
             <p>Todos</p>
-            <ion-icon name="checkmark-sharp" class="check desmarcado"></ion-icon>
+            <ion-icon name="checkmark-sharp" class="check "></ion-icon>
         </div>`
 
         for (let i = 0; i < resposta.data.length; i++) {
             
             usuariosAtivos.innerHTML +=`
-                <div class= "usuarios usuario_${i+1}" onclick="selecionar('usuario_${i+1}')">
+                <div class= "usuarios usuario_${i+1}" onclick="selecionar('usuariosAtivos',this)">
                     <ion-icon name="person-circle"></ion-icon>
                     <p>${resposta.data[i].name}</p>
                     <ion-icon name="checkmark-sharp" class="check desmarcado"></ion-icon>
                 </div>
                 `
-            usuariosAtivos.lastElementChild.scrollIntoView()
 
         }
 }
@@ -148,9 +134,9 @@ function EnviarMensagens(){
     const input = document.querySelector('footer input')
     const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages',{
         from: nomeUsuario,
-        to: "para todos",
+        to: destinatario,
         text: input.value,
-        type: "message" // ou "private_message" para o bônus
+        type: tipoMensagem 
     })
 
     console.log(input.value)
@@ -160,7 +146,7 @@ function EnviarMensagens(){
         buscarMensagens()
     })
     promise.catch(()=>{
-        window.location.reload()
+       window.location.reload()
     });
       
 }
@@ -171,23 +157,40 @@ function ativarMenu(){
     menuLateral.classList.toggle("escondido")
 }
 
-function selecionar(tipo){
-    let itemAnterior
 
-    if( tipo === 'publico'){
-        itemAnterior = document.querySelector(`.reservadamente .check`)
-    }else{
-        itemAnterior = document.querySelector(`.publico .check`)
+function selecionar(tipo, item){
+
+    const itemSelecionado = document.querySelector(`.${tipo} .selecionado`)
+
+    console.log(itemSelecionado)
+
+    if (itemSelecionado != null){
+        itemSelecionado.classList.remove('selecionado')
+        itemSelecionado.children[2].classList.add('desmarcado')
+        item.children[2].classList.remove("desmarcado")
+        item.classList.add("selecionado")
+    
+    }{
+        item.children[2].classList.remove("desmarcado")
+        console.log(item.children[1].innerText)
+        item.classList.add("selecionado")
+        
     }
     
-    const item = document.querySelector(`.${tipo} .check`)
-
-    item.classList.remove("desmarcado")
-    itemAnterior.classList.add("desmarcado")
-}
+    if(item.children[1].innerText === 'Público'){
+        destinatario = "Todos"
+        tipoMensagem = "message"
+    }else if(item.children[1].innerText === 'Reservadamente'){
+        tipoMensagem = "private_message"
+    }else{
+        destinatario = item.children[1].innerText
+    }
+    
+       
+ } 
 
 setInterval(PermanecerLogado,5000)
-setInterval(buscarMensagens,10000)
+setInterval(buscarMensagens,3000)
 setInterval(buscarUsuariosAtivos,10000)
 
 document.addEventListener("keypress", (tecla)=> {
