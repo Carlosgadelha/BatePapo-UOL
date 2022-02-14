@@ -2,21 +2,45 @@ let nomeUsuario, controle
 
 controle = false
 
+function preloader(){
+    const input = document.querySelector(' .telaEntrada input')
+    input.classList.add('escondido')
+
+    const button = document.querySelector(' .telaEntrada button')
+    button.classList.add('escondido')
+
+    const preloader = document.querySelector(' .telaEntrada .preloader')
+    preloader.classList.remove('escondido')
+
+    const nome = document.querySelector(' .telaEntrada p')
+    nome.classList.remove('escondido')
+
+}
+
 
 function logar(){
 
-        nomeUsuario = prompt("Qual seu nome? ")
+        const input = document.querySelector(' .telaEntrada input')
+        nomeUsuario = input.value
         logado = true
         const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/participants',{
         name: nomeUsuario
         })
-        console.log("teste")
+
         promise.then((resposta)=>{
            
             const statusCode = parseInt(resposta.status)
             if(statusCode === 200){
-                console.log("Sucesso vai da certo Garoto")
-                buscarMensagens()
+                preloader()
+                setTimeout(()=>{
+
+                    const telaEntrada = document.querySelector(' .telaEntrada')
+                    telaEntrada.classList.add('escondido')
+                    buscarMensagens()
+                },2000)
+                
+            }else if(statusCode === 400){
+                window.location.reload()
             }
         })
 
@@ -121,7 +145,7 @@ function buscarUsuariosAtivos(){
 }
 function EnviarMensagens(){
 
-    const input = document.querySelector('input')
+    const input = document.querySelector('footer input')
     const promise = axios.post('https://mock-api.driven.com.br/api/v4/uol/messages',{
         from: nomeUsuario,
         to: "para todos",
@@ -162,7 +186,6 @@ function selecionar(tipo){
     itemAnterior.classList.add("desmarcado")
 }
 
-logar()
 setInterval(PermanecerLogado,5000)
 setInterval(buscarMensagens,10000)
 setInterval(buscarUsuariosAtivos,10000)

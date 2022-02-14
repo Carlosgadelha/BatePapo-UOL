@@ -79,6 +79,59 @@ main{
 
 }
 
+.telaEntrada{
+    width: var(--largura);
+    background-color: var(--cor-principal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: 2;
+}
+
+.telaEntrada img{
+    width: 130px;
+    height: 92px;
+    margin-top: 72px;
+    margin-left: 0px;
+    margin-right: 0px;
+
+}
+.telaEntrada .preloader{
+    width: 130px;
+    height: 130px;
+
+}
+
+.telaEntrada p{
+    font-size: 20px;
+}
+
+.telaEntrada input{
+    width: 261px;
+    height: 54px;
+    margin-top: 94px;
+    text-align: center;
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+}
+
+.telaEntrada button{
+    width: 109px;
+    height: 45px;
+    margin-top: 15px;
+    font-style: normal;
+    font-weight: normal;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #696969;
+}
+
 .fundo{
     width: var(--largura);
     height: 100%;
