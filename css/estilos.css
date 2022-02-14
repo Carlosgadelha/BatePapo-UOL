@@ -1,7 +1,6 @@
 *{
     box-sizing: border-box;
     --cor-principal: rgba(255, 255, 255, 1);
-    /* --largura: 375px; */
     --largura: 100%;
 }
 
@@ -47,9 +46,6 @@ main{
     height: 100vh;
 
 }
-/* main .mensagens{
-    
-} */
 
 .mensagem{
     display: flex;
@@ -144,7 +140,6 @@ main{
 
 .fundo .lateralEsquerda{
     width: 100%;
-    /* width: 116px; */
     height: 100%;
     position: fixed;
     top: 0px;
@@ -154,7 +149,6 @@ main{
 
 .participantes{
     width: 259px;
-    /* width: var(--largura); */
     height: 100%;
     margin-left: 116px;
     background: var(--cor-principal);
@@ -181,13 +175,12 @@ main{
     height: 84px;
     width: 214.22px;
     position:fixed;
-    /* left: 133.78px; */
     right: 27px;
     top: 0px;
 }
 
 .participantes .usuariosAtivos{
-    height: 650px;
+    height: 500px;
     overflow: hidden;
     overflow-y: scroll;
     margin-top: 84px;
@@ -248,7 +241,6 @@ main{
 .fixar{
     position: fixed;
     width: 214.22px;
-    /* left: 133.78px; */
     right: 27px;
     bottom: 0px;
 }

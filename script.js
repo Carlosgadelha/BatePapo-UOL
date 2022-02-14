@@ -98,12 +98,6 @@ function buscarMensagens(){
 
 }
 
-function novasMensagens(mensagensAntigas, mensagensAtuais){
-    return mensagensAntigas.filter((element)=>{
-        !mensagensAtuais.includes(element)
-    })
-
-}
 
 function buscarUsuariosAtivos(){
 
