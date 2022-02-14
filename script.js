@@ -1,4 +1,4 @@
-let nomeUsuario, controle, destinatario, tipoMensagem
+let nomeUsuario, controle, destinatario, tipoMensagem, texto
 
 controle = false
 destinatario = "Todos"
@@ -72,15 +72,26 @@ function buscarMensagens(){
 
         mensagens.innerHTML = ""
         for (let i = 0; i < resposta.data.length; i++) {
-            
-            mensagens.innerHTML +=`
-                <div class="mensagem ${resposta.data[i].type}" >
-                    <p>${resposta.data[i].time} </p>
-                    <p>${resposta.data[i].from} ${resposta.data[i].to}</p>
-                    <p>${resposta.data[i].text} </p>
-                </div>
-                `
-            mensagens.lastElementChild.scrollIntoView()
+
+            if(resposta.data[i].type === 'private_message' && resposta.data[i].to !== nomeUsuario){
+
+            }else{
+
+                if(resposta.data[i].type === 'private_message'){
+                    texto = "reservadamente para"
+                }else{
+                    texto = "para"
+                }
+
+                mensagens.innerHTML +=`
+                    <div class="mensagem ${resposta.data[i].type} data-identifier="message"" >
+                        <p>${resposta.data[i].time} </p>
+                        <p><b>${resposta.data[i].from}</b> ${texto} <b>${resposta.data[i].to}</b> </p>
+                        <p>${resposta.data[i].text} </p>
+                    </div>
+                    `
+                mensagens.lastElementChild.scrollIntoView()
+            }
 
         }
     }
@@ -109,7 +120,7 @@ function buscarUsuariosAtivos(){
         }
         usuariosAtivos.innerHTML = ""
         usuariosAtivos.innerHTML +=`
-        <div class= "usuarios usuario_0 selecionado" onclick="selecionar('usuariosAtivos',this)">
+        <div class= "usuarios usuario_0 selecionado" onclick="selecionar('usuariosAtivos',this)" data-identifier="participant">
             <ion-icon name="people-sharp"></ion-icon>
             <p>Todos</p>
             <ion-icon name="checkmark-sharp" class="check "></ion-icon>
@@ -118,7 +129,7 @@ function buscarUsuariosAtivos(){
         for (let i = 0; i < resposta.data.length; i++) {
             
             usuariosAtivos.innerHTML +=`
-                <div class= "usuarios usuario_${i+1}" onclick="selecionar('usuariosAtivos',this)">
+                <div class= "usuarios usuario_${i+1}" onclick="selecionar('usuariosAtivos',this)" data-identifier="participant">
                     <ion-icon name="person-circle"></ion-icon>
                     <p>${resposta.data[i].name}</p>
                     <ion-icon name="checkmark-sharp" class="check desmarcado"></ion-icon>
@@ -138,8 +149,6 @@ function EnviarMensagens(){
         text: input.value,
         type: tipoMensagem 
     })
-
-    console.log(input.value)
 
     promise.then(()=>{
         input.value = ''
@@ -162,8 +171,6 @@ function selecionar(tipo, item){
 
     const itemSelecionado = document.querySelector(`.${tipo} .selecionado`)
 
-    console.log(itemSelecionado)
-
     if (itemSelecionado != null){
         itemSelecionado.classList.remove('selecionado')
         itemSelecionado.children[2].classList.add('desmarcado')
@@ -172,16 +179,18 @@ function selecionar(tipo, item){
     
     }{
         item.children[2].classList.remove("desmarcado")
-        console.log(item.children[1].innerText)
         item.classList.add("selecionado")
         
     }
     
     if(item.children[1].innerText === 'Público'){
+
         destinatario = "Todos"
         tipoMensagem = "message"
+
     }else if(item.children[1].innerText === 'Reservadamente'){
         tipoMensagem = "private_message"
+        
     }else{
         destinatario = item.children[1].innerText
     }
